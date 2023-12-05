@@ -1,0 +1,3 @@
+const viewMovers=(req,res)=>{
+    
+}
