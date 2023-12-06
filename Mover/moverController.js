@@ -46,7 +46,7 @@ const login = (req, res) => {
 
   movers.findOne({ email }, (err, user) => {
     if (err) {
-      return res.status(500).json({ message: 'Something went wrong' });
+      return res.json({ message: 'Something went wrong' });
     }
 
     if (!user) {
@@ -413,10 +413,10 @@ const ApproveMover=(req,res)=>{
 
 
 
-const UpdateLoc=(req,res)=>{
+const approveOrder=(req,res)=>{
   luggage.findByIdAndUpdate({_id:req.params.id},
-    {loc:req.body.loc,
-    status:req.body.status}).exec()
+    {
+    status:"approved"}).exec()
   .then(data=>{
     
     res.json({
@@ -434,5 +434,26 @@ const UpdateLoc=(req,res)=>{
 
 }
 
+const rejectOrder=(req,res)=>{
+  luggage.findByIdAndUpdate({_id:req.params.id},
+    {
+    status:"rejected"}).exec()
+  .then(data=>{
+    
+    res.json({
+        status:200,
+        msg:"Data Updated successfully"
+    })
+  
+}).catch(err=>{
+    res.json({
+        status:500,
+        msg:"Data not Inserted",
+        Error:err
+    })
+})
+
+}
 module.exports={registerMover,login,requireAuth,viewMovers,showMoverById,editMoversById,forgotPassword,deleteMoverById,
-showBookingReqs,addReview,addRating,generatePayment,viewOrderByMoverId,viewMoverRequests,ApproveMover,UpdateLoc}
+showBookingReqs,addReview,addRating,generatePayment,viewOrderByMoverId,viewMoverRequests,ApproveMover,
+approveOrder,rejectOrder}

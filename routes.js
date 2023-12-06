@@ -21,7 +21,9 @@ router.post('/viewBooking/:id',packercontroller.viewOrderById)
 router.post('/deleteOrderById/:id',packercontroller.deleteOrderById)//done
 router.post('/viewOrderByPackerId/:id',packercontroller.viewOrderByPackerId)//done
 router.post('/viewOrderByMoverId/:id',moverController.viewOrderByMoverId)//done
-router.post('/updateLoc/:id',moverController.UpdateLoc)//done
+router.post('/approveOrder/:id',moverController.approveOrder)
+router.post('/rejectOrder/:id',moverController.rejectOrder)
+
 router.post('/trackMyLuggage/:id',packercontroller.trackMyLuggage)
 
 
@@ -56,5 +58,8 @@ router.post('/registerComplaint',complaint.registerComplaint)//done
 router.post('/viewComplaintByMId/:id',complaint.viewComplaintByMId)//done
 router.post('/viewAllComplaint',complaint.viewAllComplaint)//done
 
+
+//Driver routes 
+router.post('/registerComplaint',complaint.registerComplaint)
 
 module.exports=router

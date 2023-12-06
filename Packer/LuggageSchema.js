@@ -102,10 +102,10 @@ mid:{
         type:Number,
         default:0
     },
-    loc:{
-        type:String,
-        default:"Sorry! Order not confirmed"
-    }
+    // loc:{
+    //     type:String,
+    //     default:"Sorry! Order not confirmed"
+    // }
 });
 module.exports=mongoose.model('pluggages',pSchema)
 
