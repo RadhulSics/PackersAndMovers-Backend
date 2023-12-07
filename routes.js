@@ -4,6 +4,7 @@ const packercontroller=require('./Packer/packerController')
 const moverController=require('./Mover/moverController')
 const moverrate=require('./Mover/RateController')
 const complaint=require('./Packer/compController')
+const driverController=require('./Driver/driverController')
 
 
 //packer  routes
@@ -20,7 +21,7 @@ router.post('/addLuggage',packercontroller.addLuggage)//done
 router.post('/viewBooking/:id',packercontroller.viewOrderById)
 router.post('/deleteOrderById/:id',packercontroller.deleteOrderById)//done
 router.post('/viewOrderByPackerId/:id',packercontroller.viewOrderByPackerId)//done
-router.post('/viewOrderByMoverId/:id',moverController.viewOrderByMoverId)//done
+router.post('/viewOrderByMoverId/:id',moverController.viewAcceptedOrderByMoverId)// view accepted orders for movers
 router.post('/approveOrder/:id',moverController.approveOrder)
 router.post('/rejectOrder/:id',moverController.rejectOrder)
 
@@ -52,7 +53,10 @@ router.post('/viewRateByMover/:mover_id',moverrate.viewRatesByMover)//done
 router.post('/editRateById/:id',moverrate.editRateById)//done
 
 //mover bookings
-router.post('/showBookingReqs/:id',moverController.showBookingReqs)
+router.post('/showBookingReqs/:id',moverController.showBookingReqs) //view order reqs for movers
+router.post('/approveOrder/:id',moverController.approveOrder)//approve order for movers
+router.post('/rejectOrder/:id',moverController.rejectOrder)//reject  order for movers
+
 
 router.post('/registerComplaint',complaint.registerComplaint)//done
 router.post('/viewComplaintByMId/:id',complaint.viewComplaintByMId)//done
@@ -60,6 +64,10 @@ router.post('/viewAllComplaint',complaint.viewAllComplaint)//done
 
 
 //Driver routes 
-router.post('/registerComplaint',complaint.registerComplaint)
+router.post('/registerDriver',driverController.registerDriver)
+router.post('/registerDriver',driverController.loginDriver)
+router.post('/viewDriverById/:id',driverController.viewDriverById)
+router.post('/editDriverById/:id',driverController.editDriverById)
+router.post('/deleteDriverById/:id',driverController.deleteDriverById)
 
 module.exports=router
