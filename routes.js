@@ -43,7 +43,8 @@ router.post('/forgotPwdMover',moverController.forgotPassword)//done
 router.post('/addReview',moverController.addReview)//done
 router.post('/addRating',moverController.addRating)//done
 router.post('/updatePayment/:id',moverController.generatePayment)//date
-router.post('/showBookingReqs/:id',moverController.viewMoverRequests)//
+
+router.post('/showBookingReqs/',moverController.viewMoverRequests)//
 
 
 //Mover rates
