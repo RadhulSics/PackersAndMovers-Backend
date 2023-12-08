@@ -69,5 +69,6 @@ router.post('/registerDriver',driverController.loginDriver)
 router.post('/viewDriverById/:id',driverController.viewDriverById)
 router.post('/editDriverById/:id',driverController.editDriverById)
 router.post('/deleteDriverById/:id',driverController.deleteDriverById)
+router.post('/acceptorderbyDriverId/:id',driverController.acceptorderbyDriverId)// driver accepting order 
 
 module.exports=router

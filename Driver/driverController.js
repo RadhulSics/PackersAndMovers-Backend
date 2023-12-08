@@ -1,4 +1,5 @@
 
+const LuggageSchema = require('../Packer/LuggageSchema')
 const drivers=require('./driverSchema')
 const locationupdates=require('./locationUpdateSchema')
 
@@ -110,7 +111,29 @@ const viewDrivers=(req,res)=>{
     })
   })
   }
+  //accept Drivers by id
+  const acceptorderbyDriverId=(req,res)=>{
+      
+    LuggageSchema.findByIdAndUpdate({_id:req.params.id},
+        {
+          driverstatus:"accepted",
+          driverid:req.body.driverid
+      })
+  .exec().then(data=>{
+    res.json({
+        status:200,
+        msg:"Updated successfully"
+    })
+  }).catch(err=>{
+    res.json({
+        status:500,
+        msg:"Data not Updated",
+        Error:err
+    })
+  })
+  }
   
+
   
   // del drivers by id
   const deleteDriverById=(req,res)=>{
@@ -167,4 +190,7 @@ const loginDriver = (req, res) => {
   //Login  --finished
 
   
-module.exports={registerDriver,deleteDriverById,editDriverById,viewDriverById,viewDrivers,loginDriver}
+module.exports={registerDriver,deleteDriverById,editDriverById,viewDriverById,viewDrivers,
+  loginDriver,
+  acceptorderbyDriverId
+}
