@@ -34,7 +34,7 @@ const registerDriver=(req,res)=>{
 //View all Drivers
 
 const viewDrivers=(req,res)=>{
-    drivers.find().exec()
+    drivers.find().populate('mid').exec()
     .then(data=>{
       if(data.length>0){
       res.json({
@@ -61,7 +61,7 @@ const viewDrivers=(req,res)=>{
   // view drivers finished
   
   
-  //View all drivers
+  //View  driver by id
   
   const viewDriverById=(req,res)=>{
     drivers.findById({_id:req.params.id}).exec()
@@ -85,6 +85,29 @@ const viewDrivers=(req,res)=>{
   
   // view Drivers finished
   
+ //View  driver by  mover id
+  
+ const viewDriverByMId=(req,res)=>{
+  drivers.find({mid:req.params.id}).exec()
+  .then(data=>{
+    
+    res.json({
+        status:200,
+        msg:"Data obtained successfully",
+        data:data
+    })
+  
+}).catch(err=>{
+    res.json({
+        status:500,
+        msg:"Data not Inserted",
+        Error:err
+    })
+})
+
+}
+
+
   //update Drivers by id
   const editDriverById=(req,res)=>{
       
@@ -188,9 +211,33 @@ const loginDriver = (req, res) => {
   };
   
   //Login  --finished
-
+//View all orders for drivers
+  
+  const viewPendingOrdesForDrivers=(req,res)=>{
+    LuggageSchema.find({mid:req.params.id,driverstatus:"Pending"}).exec()
+    .then(data=>{
+      
+      res.json({
+          status:200,
+          msg:"Data obtained successfully",
+          data:data
+      })
+    
+  }).catch(err=>{
+      res.json({
+          status:500,
+          msg:"Data not Inserted",
+          Error:err
+      })
+  })
+  
+  }
+  updateLocationbyDriver
   
 module.exports={registerDriver,deleteDriverById,editDriverById,viewDriverById,viewDrivers,
   loginDriver,
-  acceptorderbyDriverId
+  acceptorderbyDriverId,
+  viewPendingOrdesForDrivers,
+  viewDriverByMId,
+  
 }
