@@ -65,7 +65,7 @@ router.post('/viewAllComplaint',complaint.viewAllComplaint)//done
 
 //Driver routes 
 router.post('/registerDriver',driverController.registerDriver)
-router.post('/registerDriver',driverController.loginDriver)
+router.post('/loginDriver',driverController.loginDriver)
 router.post('/viewDriverById/:id',driverController.viewDriverById)
 router.post('/editDriverById/:id',driverController.editDriverById)
 router.post('/deleteDriverById/:id',driverController.deleteDriverById)
