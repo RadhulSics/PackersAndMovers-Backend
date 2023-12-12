@@ -343,8 +343,8 @@ const addRating=(req,res)=>{
 
 
 //view order details for Movers
-const viewOrderByMoverId=(req,res)=>{
-  luggage.find({mid:req.params.id}).exec()
+const viewAcceptedOrderByMoverId=(req,res)=>{
+  luggage.find({mid:req.params.id,status:"approved"}).exec()
   .then(data=>{
     
     res.json({
@@ -455,5 +455,5 @@ const rejectOrder=(req,res)=>{
 
 }
 module.exports={registerMover,login,requireAuth,viewMovers,showMoverById,editMoversById,forgotPassword,deleteMoverById,
-showBookingReqs,addReview,addRating,generatePayment,viewOrderByMoverId,viewMoverRequests,ApproveMover,
+showBookingReqs,addReview,addRating,generatePayment,viewAcceptedOrderByMoverId,viewMoverRequests,ApproveMover,
 approveOrder,rejectOrder}
