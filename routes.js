@@ -69,5 +69,9 @@ router.post('/loginDriver',driverController.loginDriver)
 router.post('/viewDriverById/:id',driverController.viewDriverById)
 router.post('/editDriverById/:id',driverController.editDriverById)
 router.post('/deleteDriverById/:id',driverController.deleteDriverById)
+router.post('/acceptorderbyDriverId/:id',driverController.acceptorderbyDriverId)// driver accepting order 
+router.post('/viewDrivers',driverController.viewDrivers) // for Admin
+router.post('/viewPendingOrdesForDrivers/:id',driverController.viewPendingOrdesForDrivers) // view pending orders for driver
+router.post('/viewDriverByMId/:id',driverController.viewDriverByMId) // view all drivers by mover id
 
 module.exports=router

@@ -2,15 +2,10 @@ const mongoose= require("mongoose");
 
 const locSchema=mongoose.Schema({
     location:
-        [{
-            loc:{
-                type:String
-                
-            },
-            date:{
-                type:Date
-            }
-        }]
+   {
+    type:String,
+    default:null
+   }
     ,
     
     driverid:{
@@ -19,10 +14,6 @@ const locSchema=mongoose.Schema({
         ref:'drivers'
     },
   
-    status:{
-        type:String,
-        required:"Not Picked up"
-    },
     date:{
         type:Date,
         required:true
