@@ -32,7 +32,10 @@ const locSchema=mongoose.Schema({
         default:'Order Confirmed'
 
     },
-    comments:String,
+    comments:{
+        type:String,
+        default:null
+    },
     isactive:{
         type:Boolean,
         default:true
