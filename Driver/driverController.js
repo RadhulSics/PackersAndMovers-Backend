@@ -4,6 +4,7 @@ const drivers=require('./driverSchema')
 const locationupdates=require('./locationUpdateSchema')
 
 const registerDriver=(req,res)=>{
+  console.log('mid',req.body.mid);
     const newDriver=new drivers({
         name:req.body.name,
         gender:req.body.gender,
@@ -214,7 +215,7 @@ const loginDriver = (req, res) => {
 //View all orders for drivers
   
   const viewPendingOrdesForDrivers=(req,res)=>{
-    LuggageSchema.find({mid:req.params.id,driverstatus:"Pending"}).exec()
+    LuggageSchema.find({mid:req.params.id,driverstatus:"pending"}).exec()
     .then(data=>{
       
       res.json({
@@ -232,7 +233,6 @@ const loginDriver = (req, res) => {
   })
   
   }
-  updateLocationbyDriver
   
 module.exports={registerDriver,deleteDriverById,editDriverById,viewDriverById,viewDrivers,
   loginDriver,
