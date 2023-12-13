@@ -64,14 +64,16 @@ router.post('/viewAllComplaint',complaint.viewAllComplaint)//done
 
 
 //Driver routes 
-router.post('/registerDriver',driverController.registerDriver)//done
-router.post('/loginDriver',driverController.loginDriver)//done
-router.post('/viewDriverById/:id',driverController.viewDriverById)//done
-router.post('/editDriverById/:id',driverController.editDriverById)//done
-router.post('/deleteDriverById/:id',driverController.deleteDriverById)//done 
-router.post('/acceptorderbyDriverId/:id',driverController.acceptorderbyDriverId)// driver accepting order ---done
+router.post('/registerDriver',driverController.registerDriver)
+router.post('/loginDriver',driverController.loginDriver)
+router.post('/viewDriverById/:id',driverController.viewDriverById)
+router.post('/editDriverById/:id',driverController.editDriverById)
+router.post('/deleteDriverById/:id',driverController.deleteDriverById)
+router.post('/acceptorderbyDriverId/:id',driverController.acceptorderbyDriverId)// driver accepting order 
 router.post('/viewDrivers',driverController.viewDrivers) // for Admin
-router.post('/viewPendingOrdesForDrivers/:id',driverController.viewPendingOrdesForDrivers) // view pending orders for driver--done
-router.post('/viewDriverByMId/:id',driverController.viewDriverByMId) // view all drivers by mover i--done
+router.post('/viewPendingOrdesForDrivers/:id',driverController.viewPendingOrdesForDrivers) // view pending orders for driver
+router.post('/viewDriverByMId/:id',driverController.viewDriverByMId) // view all drivers by mover id
+router.post('/viewAcceptedOrders/:id',driverController.viewAcceptedOrders) // view Accepted orders for drivers
+router.post('/updateLocByDriver/:id',driverController.updateLocByDriver) // Update location and status for driver
 
 module.exports=router

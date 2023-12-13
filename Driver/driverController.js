@@ -136,9 +136,12 @@ const viewDrivers=(req,res)=>{
   })
   }
   //accept Drivers by id
-  const acceptorderbyDriverId=(req,res)=>{
-      
-    LuggageSchema.findByIdAndUpdate({_id:req.params.id},
+  const acceptorderbyDriverId=async(req,res)=>{
+      let date=new Date()
+      console.log(req.body.driverid);
+      console.log("req",req.params.id);
+
+    await LuggageSchema.findByIdAndUpdate({_id:req.params.id},
         {
           driverstatus:"accepted",
           driverid:req.body.driverid
@@ -154,6 +157,18 @@ const viewDrivers=(req,res)=>{
         msg:"Data not Updated",
         Error:err
     })
+  })
+  let newDriverUpdate=new locationupdates({
+    driverid:req.body.driverid,
+    date:date,
+    orderid:req.params.id
+
+  })
+  await newDriverUpdate.save().then(data=>{
+    console.log("data saved");
+  })
+  .catch(err=>{
+    console.log("err on loc updates",err);
   })
   }
   
@@ -239,5 +254,6 @@ module.exports={registerDriver,deleteDriverById,editDriverById,viewDriverById,vi
   acceptorderbyDriverId,
   viewPendingOrdesForDrivers,
   viewDriverByMId,
-  
+  viewAcceptedOrders,
+  updateLocByDriver
 }
