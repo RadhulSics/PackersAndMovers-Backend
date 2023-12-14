@@ -4,6 +4,7 @@ const drivers=require('./driverSchema')
 const locationupdates=require('./locationUpdateSchema')
 
 const registerDriver=(req,res)=>{
+  console.log(req.body.name);
     const newDriver=new drivers({
         name:req.body.name,
         gender:req.body.gender,
@@ -247,8 +248,9 @@ const loginDriver = (req, res) => {
   })
   
   }
+  
   const viewAcceptedOrders=(req,res)=>{
-    locationupdates.find({driverid:req.params.id,isactive:true}).exec()
+    locationupdates.find({driverid:req.params.id,isactive:true}).populate('orderid').exec()
     .then(data=>{
       
       res.json({
@@ -292,11 +294,89 @@ const loginDriver = (req, res) => {
       })
   })
   }
+  const testApi=(req,res)=>{
+    console.log(req.body.id);
+  }
+  const viewCurrentLocationUpdatesByDriverid=(req,res)=>{
+    locationupdates.find({driverid:req.body.driverid,isactive:true}).populate('orderid').exec()
+    .then(data=>{
+      
+      res.json({
+          status:200,
+          msg:"Data obtained successfully",
+          data:data
+      })
+  }).catch(err=>{
+      res.json({
+          status:500,
+          msg:"Data not Inserted",
+          Error:err
+      })
+  })
+  }
+
+  const viewAllLocationUpdatesByDriverid=(req,res)=>{
+    locationupdates.find({driverid:req.body.driverid}).populate('orderid').exec()
+    .then(data=>{
+      
+      res.json({
+          status:200,
+          msg:"Data obtained successfully",
+          data:data
+      })
+  }).catch(err=>{
+      res.json({
+          status:500,
+          msg:"Data not Inserted",
+          Error:err
+      })
+  })
+  }
+  const viewAllLocationUpdatesByMoverid=(req,res)=>{
+    locationupdates.find({mid:req.body.mid}).populate('orderid').populate('driverid').exec()
+    .then(data=>{
+      
+      res.json({
+          status:200,
+          msg:"Data obtained successfully",
+          data:data
+      })
+  }).catch(err=>{
+      res.json({
+          status:500,
+          msg:"Data not Inserted",
+          Error:err
+      })
+  })
+  }
+
+  const viewCurrentLocationUpdatesByMoverid=(req,res)=>{
+    locationupdates.find({mid:req.body.mid,isactive:true}).populate('driverid').populate('orderid').exec()
+    .then(data=>{
+      
+      res.json({
+          status:200,
+          msg:"Data obtained successfully",
+          data:data
+      })
+  }).catch(err=>{
+      res.json({
+          status:500,
+          msg:"Data not Inserted",
+          Error:err
+      })
+  })
+  }
 module.exports={registerDriver,deleteDriverById,editDriverById,viewDriverById,viewDrivers,
   loginDriver,
   acceptorderbyDriverId,
   viewPendingOrdesForDrivers,
   viewDriverByMId,
   viewAcceptedOrders,
-  updateLocByDriver
+  updateLocByDriver,
+  testApi,
+  viewCurrentLocationUpdatesByDriverid,
+  viewAllLocationUpdatesByDriverid,
+  viewCurrentLocationUpdatesByMoverid,
+  viewAllLocationUpdatesByMoverid
 }
