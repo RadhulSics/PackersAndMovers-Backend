@@ -248,6 +248,51 @@ const loginDriver = (req, res) => {
   })
   
   }
+  const viewAcceptedOrders=(req,res)=>{
+    locationupdates.find({driverid:req.params.id,isactive:true}).populate('orderid').exec()
+    .then(data=>{
+      
+      res.json({
+          status:200,
+          msg:"Data obtained successfully",
+          data:data
+      })
+    
+  }).catch(err=>{
+      res.json({
+          status:500,
+          msg:"Data not Inserted",
+          Error:err
+      })
+  })
+  }
+  const updateLocByDriver=(req,res)=>{
+    let isactive=true
+    if(req.body.status=="Delivered")
+    isactive=false
+    locationupdates.findByIdAndUpdate({_id:req.params.id},{
+      location:req.body.location,
+      arrivaldate:req.body.arrivaldate,
+      status:req.body.status,
+      comments:req.body.comments,
+      isactive:isactive
+
+    }).exec()
+    .then(data=>{
+      
+      res.json({
+          status:200,
+          msg:"Data obtained successfully",
+          data:data
+      })
+  }).catch(err=>{
+      res.json({
+          status:500,
+          msg:"Data not Inserted",
+          Error:err
+      })
+  })
+  }
   
 module.exports={registerDriver,deleteDriverById,editDriverById,viewDriverById,viewDrivers,
   loginDriver,
