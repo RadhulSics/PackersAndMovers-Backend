@@ -1,5 +1,6 @@
 
-const LuggageSchema = require('../Packer/LuggageSchema')
+const LuggageSchema = require('../Packer/LuggageSchema');
+const driverSchema = require('./driverSchema');
 const drivers=require('./driverSchema')
 const locationupdates=require('./locationUpdateSchema')
 
@@ -425,6 +426,40 @@ const getLocUpdatesById=(req,res)=>{
     })
 })
 }
+
+const removeDriverById=async(req,res)=>{
+  let flag=0
+  await locationupdates.find({isactive:true}).exec().then(data=>{
+    if(data.length>0)
+    flag=1
+  }).catch(err=>{
+    console.log(err);
+  })
+  if(flag==1){
+  await driverSchema.findByIdAndDelete(req.params.id).exec()
+  .then(data=>{
+        res.json({
+        status:200,
+        msg:"Data obtained successfully",
+        data:data
+    })
+}).catch(err=>{
+    res.json({
+        status:500,
+        msg:"Data not Inserted",
+        Error:err
+    })
+})
+  }
+  else{
+    res.json({
+      status:500,
+      msg:"Sorry !! Driver is assigned with a Shipment"
+  })
+  }
+}
+
+
 module.exports={registerDriver,deleteDriverById,editDriverById,viewDriverById,viewDrivers,
   loginDriver,
   acceptorderbyDriverId,
@@ -437,5 +472,6 @@ module.exports={registerDriver,deleteDriverById,editDriverById,viewDriverById,vi
   viewAllLocationUpdatesByDriverid,
   viewCurrentLocationUpdatesByMoverid,
   viewAllLocationUpdatesByMoverid,
-  getLocUpdatesById
+  getLocUpdatesById,
+
 }
