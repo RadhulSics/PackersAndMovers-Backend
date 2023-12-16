@@ -473,5 +473,5 @@ module.exports={registerDriver,deleteDriverById,editDriverById,viewDriverById,vi
   viewCurrentLocationUpdatesByMoverid,
   viewAllLocationUpdatesByMoverid,
   getLocUpdatesById,
-
+  removeDriverById
 }
