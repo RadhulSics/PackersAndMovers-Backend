@@ -79,7 +79,8 @@ router.post('/testApi',driverController.testApi)
 
 router.post('/viewCurrentLocationUpdatesByDriverid',driverController.viewCurrentLocationUpdatesByDriverid) // view location updates by Driver and admin by driverid
 router.post('/viewAllLocationUpdatesByDriverid',driverController.viewAllLocationUpdatesByDriverid) // view location updates by Driver and admin by driverid
-router.post('/viewCurrentLocationUpdatesByMoverid',driverController.viewCurrentLocationUpdatesByMoverid) // view 
-router.post('/viewAllLocationUpdatesByMoverid',driverController.viewAllLocationUpdatesByMoverid) // view all
+router.post('/viewCurrentLocationUpdatesByMoverid',driverController.viewCurrentLocationUpdatesByMoverid) // view pending and active 
+router.post('/viewAllLocationUpdatesByMoverid',driverController.viewAllLocationUpdatesByMoverid) // view all by mover id
+router.post('/getLocUpdatesById/:id',driverController.getLocUpdatesById) // get loc update by id
 
 module.exports=router

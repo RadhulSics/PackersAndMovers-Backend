@@ -1,13 +1,30 @@
 const mongoose= require("mongoose");
 
+
+const locationSchema = new mongoose.Schema({
+    loc: {
+      type: String,
+      default: null,
+    },
+    date: {
+      type: Date,
+      default: null,
+    },
+    status:{
+        type: String,
+        default: null
+    }
+  });
+
+
 const locSchema=mongoose.Schema({
     location:
-   {
-    type:String,
-    default:null
-   }
+  [locationSchema]
     ,
-    
+    status:{
+        type: String,
+        default: null
+    },
     driverid:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
