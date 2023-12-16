@@ -75,5 +75,11 @@ router.post('/viewPendingOrdesForDrivers/:id',driverController.viewPendingOrdesF
 router.post('/viewDriverByMId/:id',driverController.viewDriverByMId) // view all drivers by mover id
 router.post('/viewAcceptedOrders/:id',driverController.viewAcceptedOrders) // view Accepted orders for drivers
 router.post('/updateLocByDriver/:id',driverController.updateLocByDriver) // Update location and status for driver
+router.post('/testApi',driverController.testApi) 
+
+router.post('/viewCurrentLocationUpdatesByDriverid',driverController.viewCurrentLocationUpdatesByDriverid) // view location updates by Driver and admin by driverid
+router.post('/viewAllLocationUpdatesByDriverid',driverController.viewAllLocationUpdatesByDriverid) // view location updates by Driver and admin by driverid
+router.post('/viewCurrentLocationUpdatesByMoverid',driverController.viewCurrentLocationUpdatesByMoverid) // view 
+router.post('/viewAllLocationUpdatesByMoverid',driverController.viewAllLocationUpdatesByMoverid) // view all
 
 module.exports=router
