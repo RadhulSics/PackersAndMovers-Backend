@@ -1,5 +1,6 @@
 
-const LuggageSchema = require('../Packer/LuggageSchema')
+const LuggageSchema = require('../Packer/LuggageSchema');
+const driverSchema = require('./driverSchema');
 const drivers=require('./driverSchema')
 const locationupdates=require('./locationUpdateSchema')
 
@@ -267,33 +268,72 @@ const loginDriver = (req, res) => {
       })
   })
   }
-  const updateLocByDriver=(req,res)=>{
-    let isactive=true
-    if(req.body.status=="Delivered")
-    isactive=false
-    locationupdates.findByIdAndUpdate({_id:req.params.id},{
-      location:req.body.location,
-      arrivaldate:req.body.arrivaldate,
-      status:req.body.status,
-      comments:req.body.comments,
-      isactive:isactive
+  // const updateLocByDriver=(req,res)=>{
+  //   let isactive=true
+  //   console.log("rew",req.body.location);
+  //   if(req.body.status=="Delivered")
+  //   isactive=false
+  //   locationupdates.findByIdAndUpdate({_id:req.params.id},{
+  //      $push: { location: req.body.location } ,
+  //     status:req.body.status,
+  //     comments:req.body.comments,
+  //     isactive:isactive
 
-    }).exec()
-    .then(data=>{
+  //   }).exec()
+  //   .then(data=>{
       
-      res.json({
-          status:200,
-          msg:"Data obtained successfully",
-          data:data
-      })
-  }).catch(err=>{
-      res.json({
-          status:500,
-          msg:"Data not Inserted",
-          Error:err
-      })
-  })
+  //     res.json({
+  //         status:200,
+  //         msg:"Data obtained successfully",
+  //         data:data
+  //     })
+  // }).catch(err=>{
+  //   console.log(err);
+  //     res.json({
+  //         status:500,
+  //         msg:"Data not Inserted",
+  //         Error:err
+  //     })
+  // })
+
+  // }
+  
+const updateLocByDriver = (req, res) => {
+  let isactive = true;
+  console.log("req", req.body.location);
+
+  if (req.body.location.status == "Delivered") {
+    isactive = false;
   }
+
+  locationupdates
+    .findByIdAndUpdate(
+      { _id: req.params.id },
+      {
+        $push: { location: req.body.location }, // Use "location" to match your schema
+       status:req.body.location.status,
+        comments: req.body.comments,
+        isactive: isactive,
+      },
+      { new: true } // This option ensures that the updated document is returned
+    )
+    .exec()
+    .then((data) => {
+      res.json({
+        status: 200,
+        msg: "Data obtained successfully",
+        data: data,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json({
+        status: 500,
+        msg: "Data not Inserted",
+        Error: err,
+      });
+    });
+};
   const testApi=(req,res)=>{
     console.log(req.body.id);
   }
@@ -367,6 +407,59 @@ const loginDriver = (req, res) => {
       })
   })
   }
+
+  
+const getLocUpdatesById=(req,res)=>{
+  locationupdates.findById(req.params.id).exec()
+  .then(data=>{
+      
+    res.json({
+        status:200,
+        msg:"Data obtained successfully",
+        data:data
+    })
+}).catch(err=>{
+    res.json({
+        status:500,
+        msg:"Data not Inserted",
+        Error:err
+    })
+})
+}
+
+const removeDriverById=async(req,res)=>{
+  let flag=0
+  await locationupdates.find({isactive:true}).exec().then(data=>{
+    if(data.length>0)
+    flag=1
+  }).catch(err=>{
+    console.log(err);
+  })
+  if(flag==1){
+  await driverSchema.findByIdAndDelete(req.params.id).exec()
+  .then(data=>{
+        res.json({
+        status:200,
+        msg:"Data obtained successfully",
+        data:data
+    })
+}).catch(err=>{
+    res.json({
+        status:500,
+        msg:"Data not Inserted",
+        Error:err
+    })
+})
+  }
+  else{
+    res.json({
+      status:500,
+      msg:"Sorry !! Driver is assigned with a Shipment"
+  })
+  }
+}
+
+
 module.exports={registerDriver,deleteDriverById,editDriverById,viewDriverById,viewDrivers,
   loginDriver,
   acceptorderbyDriverId,
@@ -378,5 +471,7 @@ module.exports={registerDriver,deleteDriverById,editDriverById,viewDriverById,vi
   viewCurrentLocationUpdatesByDriverid,
   viewAllLocationUpdatesByDriverid,
   viewCurrentLocationUpdatesByMoverid,
-  viewAllLocationUpdatesByMoverid
+  viewAllLocationUpdatesByMoverid,
+  getLocUpdatesById,
+  removeDriverById
 }

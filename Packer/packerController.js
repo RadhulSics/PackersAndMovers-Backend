@@ -3,6 +3,7 @@ const luggage=require('./LuggageSchema')
 const packers=require('./packerSchema')
 const rates=require('../Mover/rateSchema')
 const jwt=require('jsonwebtoken')
+const locationUpdateSchema = require('../Driver/locationUpdateSchema')
 //Packer Registration 
 
 const registerPacker=(req,res)=>{
@@ -514,7 +515,6 @@ const trackMyLuggage=(req,res)=>{
 })
 
 }
-
 
 
 module.exports={registerPacker,viewPackerById,login,viewPackers,forgotPassword,deletePackerById,
