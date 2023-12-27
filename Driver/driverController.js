@@ -409,6 +409,23 @@ const updateLocByDriver = (req, res) => {
   }
 
   
+// const getLocUpdatesById=(req,res)=>{
+//   locationupdates.findById({orderid:req.params.id}).exec()
+//   .then(data=>{
+      
+//     res.json({
+//         status:200,
+//         msg:"Data obtained successfully",
+//         data:data
+//     })
+// }).catch(err=>{
+//     res.json({
+//         status:500,
+//         msg:"Data not Inserted",
+//         Error:err
+//     })
+// })
+// }
 const getLocUpdatesById=(req,res)=>{
   locationupdates.findById(req.params.id).exec()
   .then(data=>{
@@ -435,7 +452,7 @@ const removeDriverById=async(req,res)=>{
   }).catch(err=>{
     console.log(err);
   })
-  if(flag==1){
+  if(flag==0){
   await driverSchema.findByIdAndDelete(req.params.id).exec()
   .then(data=>{
         res.json({
@@ -453,7 +470,7 @@ const removeDriverById=async(req,res)=>{
   }
   else{
     res.json({
-      status:500,
+      status:501,
       msg:"Sorry !! Driver is assigned with a Shipment"
   })
   }

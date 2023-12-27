@@ -81,6 +81,6 @@ router.post('/viewCurrentLocationUpdatesByDriverid',driverController.viewCurrent
 router.post('/viewAllLocationUpdatesByDriverid',driverController.viewAllLocationUpdatesByDriverid) // view location updates by Driver and admin by driverid
 router.post('/viewCurrentLocationUpdatesByMoverid',driverController.viewCurrentLocationUpdatesByMoverid) // view pending and active 
 router.post('/viewAllLocationUpdatesByMoverid',driverController.viewAllLocationUpdatesByMoverid) // view all by mover id
-router.post('/getLocUpdatesById/:id',driverController.getLocUpdatesById) // get loc update by id
+router.post('/getLocUpdatesById/:id',driverController.getLocUpdatesById) // get loc update by id---user
 router.post('/removeDriverById/:id',driverController.removeDriverById)
 module.exports=router
