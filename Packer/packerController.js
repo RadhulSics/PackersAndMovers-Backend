@@ -452,7 +452,15 @@ const viewOrderById=(req,res)=>{
 }
 
 //delete order details
-const deleteOrderById=(req,res)=>{
+const deleteOrderById=async(req,res)=>{
+  let flag=0
+  await locationUpdateSchema.find({orderid:req.params.id}).then(data=>{
+if(data.length>0)
+flag=1
+  }).catch(err=>{
+console.log(err);
+  })
+  if(flag==0){
   luggage.findByIdAndDelete({_id:req.params.id}).exec()
   .then(data=>{
     
@@ -469,6 +477,13 @@ const deleteOrderById=(req,res)=>{
         Error:err
     })
 })
+  }
+  else{
+    res.json({
+      status:501,
+      msg:"Sorry !! Driver is assigned with a Shipment"
+  })
+  }
 
 }
 
