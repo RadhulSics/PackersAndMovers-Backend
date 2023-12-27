@@ -300,6 +300,7 @@ const loginDriver = (req, res) => {
   
 const updateLocByDriver = (req, res) => {
   let isactive = true;
+  let date=new Date()
   console.log("req", req.body.location);
 
   if (req.body.location.status == "Delivered") {
@@ -314,6 +315,7 @@ const updateLocByDriver = (req, res) => {
        status:req.body.location.status,
         comments: req.body.comments,
         isactive: isactive,
+        date:date
       },
       { new: true } // This option ensures that the updated document is returned
     )
@@ -427,7 +429,7 @@ const updateLocByDriver = (req, res) => {
 // })
 // }
 const getLocUpdatesById=(req,res)=>{
-  locationupdates.findById(req.params.id).exec()
+  locationupdates.findOne({orderid:req.params.id}).exec()
   .then(data=>{
       
     res.json({
