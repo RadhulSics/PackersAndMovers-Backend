@@ -435,7 +435,7 @@ const removeDriverById=async(req,res)=>{
   }).catch(err=>{
     console.log(err);
   })
-  if(flag==1){
+  if(flag==0){
   await driverSchema.findByIdAndDelete(req.params.id).exec()
   .then(data=>{
         res.json({
@@ -453,7 +453,7 @@ const removeDriverById=async(req,res)=>{
   }
   else{
     res.json({
-      status:500,
+      status:501,
       msg:"Sorry !! Driver is assigned with a Shipment"
   })
   }
